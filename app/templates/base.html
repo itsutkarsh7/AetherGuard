@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SentinelAI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Custom Neon Style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/neon.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <!-- Optional: For Tailwind plugins like Flowbite or Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Example: Chart.js for dashboard charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white font-sans">
   {% block content %}{% endblock %}
 </body>
 </html>
