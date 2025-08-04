@@ -1,23 +1,25 @@
+<!-- templates/landing.html -->
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="bg-black text-white">
 <head>
-    <meta charset="UTF-8">
-    <title>SentinelAI - Welcome</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/neon.css') }}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>SentinelAI | Secure Your Cloud</title>
+  <link href="{{ url_for('static', filename='css/neon.css') }}" rel="stylesheet">
 </head>
-<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center px-4">
+<body class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black text-white">
 
-    <h1 class="text-5xl font-bold neon-text mb-4">Welcome to SentinelAI</h1>
-    <p class="text-lg text-center max-w-xl mb-8">
-        Empowering next-gen AI cybersecurity with intelligent cloud monitoring, threat detection, and real-time dashboards.
-    </p>
+  <div class="text-center px-4">
+    <h1 class="text-5xl md:text-6xl font-bold neon-text mb-6">Welcome to SentinelAI</h1>
+    <p class="text-lg md:text-xl text-gray-300 mb-8">Your AI-powered cloud cybersecurity assistant.</p>
+    
+    <a href="{{ url_for('auth.login') }}">
+      <button class="px-6 py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-2xl neon-glow">Get Started</button>
+    </a>
+  </div>
 
-    {% if user %}
-        <a href="{{ url_for('dashboard.dashboard') }}" class="neon-button">Go to Dashboard</a>
-    {% else %}
-        <a href="{{ url_for('auth.login') }}" class="neon-button">Login to Get Started</a>
-    {% endif %}
+  <div class="absolute bottom-4 text-gray-500 text-sm">
+    © 2025 SentinelAI. All rights reserved.
+  </div>
 
 </body>
 </html>
