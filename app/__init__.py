@@ -1,27 +1,15 @@
+# app/__init__.py
 from flask import Flask
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-mongo_client = MongoClient(os.getenv("MONGO_URI"))
-mongo_db = mongo_client.get_database("SentinelAI")
+from app.routes.landing import landing_bp
+from app.routes.auth import auth_bp
+from app.routes.dashboard import dashboard_bp
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = os.getenv("SECRET_KEY")
+    app.config.from_pyfile('../config.py')
 
-    # Attach MongoDB to the app context
-    app.mongo_db = mongo_db
-
-    # Register Blueprints
-    from .routes.auth import auth_bp
-    from .routes.landing import landing_bp
-    from .routes.dashboard import dashboard_bp
-
-    app.register_blueprint(auth_bp)
     app.register_blueprint(landing_bp)
-    app.register_blueprint(dashboard_bp)
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(dashboard_bp, url_prefix="/dashboard")
 
     return app
