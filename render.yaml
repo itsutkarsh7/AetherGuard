@@ -1,23 +1,27 @@
 services:
   - type: web
-    name: sentinelai
+    name: sentinelai-web
     env: python
-    buildCommand: ""
-    startCommand: gunicorn main:app
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app
     envVars:
-      - key: CLOUDANT_USERNAME
-        sync: false
-      - key: CLOUDANT_API_KEY
-        sync: false
-      - key: CLOUDANT_DB_NAME
-        sync: false
       - key: SECRET_KEY
-        sync: false
+        value: your_flask_secret_key_here
       - key: GOOGLE_OAUTH_CLIENT_ID
-        sync: false
+        value: 1050872776435-5ntemhnafisf1e4tc72mkka987scjq14.apps.googleusercontent.com
       - key: GOOGLE_OAUTH_CLIENT_SECRET
-        sync: false
+        value: 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
       - key: GITHUB_OAUTH_CLIENT_ID
-        sync: false
+        value: Ov23liNJPYFJvEcC38wA
       - key: GITHUB_OAUTH_CLIENT_SECRET
-        sync: false
+        value: b256d415f58f18a79478d09c67f06ea4e15c3d5d
+      - key: CLOUDANT_USERNAME
+        value: 80889d77-d056-4c36-b12c-f991d9f51040-bluemix
+      - key: CLOUDANT_API_KEY
+        value: ao0PHa5z1Pn-z6fvljYDoS6HogBXWMahJShRZx7JnBHg
+      - key: CLOUDANT_DB_NAME
+        value: SentinelAI
+      - key: CLOUDANT_URL
+        value: https://80889d77-d056-4c36-b12c-f991d9f51040-bluemix.cloudantnosqldb.appdomain.cloud
