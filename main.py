@@ -1,4 +1,4 @@
-from sentinelAI import create_app  # Replace with your actual app package name
+from app import create_app
 
 app = create_app()
 
