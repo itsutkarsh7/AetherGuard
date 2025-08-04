@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from flask_session import Session
 import os
 
-from .auth import auth_bp, configure_oauth
+from .blueprints.auth import auth_bp, configure_oauth
 from .dashboard import dashboard_bp
 from .landing import landing_bp
 
