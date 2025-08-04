@@ -4,19 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SentinelAI</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- ✅ Tailwind CSS CDN (correct and modern) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ Custom Dark Neon Theme -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/neon.css') }}">
 </head>
 <body class="bg-black text-white font-sans">
 
-  <!-- Navbar -->
+  <!-- ✅ Navbar -->
   <nav class="flex justify-between items-center px-6 py-4 bg-[#0f0f0f] border-b border-[#1f1f1f] shadow-lg">
     <!-- Logo or Home link -->
     <a href="{{ url_for('landing.landing') }}" class="text-2xl font-bold neon-text">SentinelAI</a>
 
     <!-- Navigation Links -->
     <div class="space-x-4">
-      {% if 'user' in session %}
+      {% if session.get('user') %}
         <a href="{{ url_for('dashboard.dashboard') }}" class="px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-600 hover:text-white transition">
           Dashboard
         </a>
@@ -32,7 +36,7 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
+  <!-- ✅ Main Page Content -->
   <main class="p-6">
     {% block content %}{% endblock %}
   </main>
