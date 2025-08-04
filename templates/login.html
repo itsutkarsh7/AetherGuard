@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-black">
+    <div class="bg-gray-900 p-8 rounded-2xl shadow-xl w-full max-w-md neon-card">
+        <h2 class="text-3xl font-bold neon-text text-center mb-6">Welcome to SentinelAI</h2>
+
+        <!-- Login/Register Toggle -->
+        <div class="flex justify-around mb-6">
+            <a href="{{ url_for('auth.login_page', mode='login') }}"
+               class="btn-neon {% if mode == 'login' %}bg-neonBlue text-black{% endif %}">Login</a>
+            <a href="{{ url_for('auth.login_page', mode='register') }}"
+               class="btn-neon {% if mode == 'register' %}bg-neonBlue text-black{% endif %}">Register</a>
+        </div>
+
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="bg-red-600 text-white p-2 rounded mb-4 text-center">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Email Login/Register Form -->
+        <form method="POST" action="{{ url_for('auth.handle_auth') }}" class="space-y-4">
+            <input type="hidden" name="mode" value="{{ mode }}">
+            <div>
+                <label for="email" class="block text-neonBlue text-sm mb-1">Email</label>
+                <input type="email" name="email" id="email" required
+                       class="w-full px-4 py-2 rounded-lg bg-black border border-neonBlue text-white focus:outline-none"
+                       placeholder="you@example.com">
+            </div>
+            <div>
+                <label for="password" class="block text-neonBlue text-sm mb-1">Password</label>
+                <input type="password" name="password" id="password" required
+                       class="w-full px-4 py-2 rounded-lg bg-black border border-neonBlue text-white focus:outline-none"
+                       placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full btn-neon">
+                {% if mode == 'register' %}Register{% else %}Login{% endif %}
+            </button>
+        </form>
+
+        <!-- OR Divider -->
+        <div class="my-6 flex items-center justify-center">
+            <hr class="border-gray-700 w-1/3"><span class="mx-4 text-neonBlue text-sm">OR</span><hr class="border-gray-700 w-1/3">
+        </div>
+
+        <!-- OAuth Buttons -->
+        <a href="{{ url_for('auth.login_google') }}"
+           class="flex items-center justify-center space-x-2 w-full btn-neon py-2">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" class="h-5 w-5">
+            <span>Continue with Google</span>
+        </a>
+        <a href="{{ url_for('auth.login_github') }}"
+           class="flex items-center justify-center space-x-2 w-full btn-neon py-2 mt-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" class="h-5 w-5">
+            <span>Continue with GitHub</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

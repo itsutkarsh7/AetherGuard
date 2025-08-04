@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>SentinelAI - Welcome</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/neon.css') }}" rel="stylesheet">
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center px-4">
+
+    <h1 class="text-5xl font-bold neon-text mb-4">Welcome to SentinelAI</h1>
+    <p class="text-lg text-center max-w-xl mb-8">
+        Empowering next-gen AI cybersecurity with intelligent cloud monitoring, threat detection, and real-time dashboards.
+    </p>
+
+    {% if user %}
+        <a href="{{ url_for('dashboard.dashboard') }}" class="neon-button">Go to Dashboard</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}" class="neon-button">Login to Get Started</a>
+    {% endif %}
+
+</body>
+</html>
