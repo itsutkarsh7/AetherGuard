@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="text-center py-12 md:py-20 bg-gradient-to-br from-[#0f0f0f] to-black rounded-2xl shadow-xl mb-10">
+  <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 neon-text">
+    Welcome to SentinelAI
+  </h1>
+  <p class="mt-4 text-lg text-gray-300 max-w-xl mx-auto">
+    AI-powered threat detection & system monitoring dashboard
+  </p>
+</section>
+
+<!-- System Stats Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <div class="bg-[#1a1a1a] border border-pink-500 rounded-2xl p-6 shadow hover:shadow-pink-500/40 transition">
+    <h3 class="text-xl font-semibold text-pink-400">Total Threats</h3>
+    <p class="text-3xl mt-2 font-bold neon-text">{{ threat_count }}</p>
+  </div>
+  <div class="bg-[#1a1a1a] border border-purple-500 rounded-2xl p-6 shadow hover:shadow-purple-500/40 transition">
+    <h3 class="text-xl font-semibold text-purple-400">Active Alerts</h3>
+    <p class="text-3xl mt-2 font-bold neon-text">{{ alert_count }}</p>
+  </div>
+  <div class="bg-[#1a1a1a] border border-blue-500 rounded-2xl p-6 shadow hover:shadow-blue-500/40 transition">
+    <h3 class="text-xl font-semibold text-blue-400">System Uptime</h3>
+    <p class="text-3xl mt-2 font-bold neon-text">99.9%</p> <!-- You can keep this static or simulate later -->
+  </div>
+  <div class="bg-[#1a1a1a] border border-green-500 rounded-2xl p-6 shadow hover:shadow-green-500/40 transition">
+    <h3 class="text-xl font-semibold text-green-400">Logs Processed</h3>
+    <p class="text-3xl mt-2 font-bold neon-text">{{ log_count }}</p>
+  </div>
+</div>
+
+<!-- Placeholder for Charts -->
+<section class="mt-12">
+  <div class="bg-[#1a1a1a] border border-gray-700 rounded-2xl p-6">
+    <h2 class="text-2xl font-semibold mb-4 text-pink-400">Threat Activity Chart</h2>
+    <p class="text-gray-400">[ Insert chart component here in future ]</p>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center py-20">
+    <h1 class="text-5xl font-bold text-neon mb-4">Welcome to SentinelAI</h1>
+    <p class="text-xl text-gray-300 mb-6">Cloud-based AI-Powered Cyber Threat Detection Platform</p>
+    <a href="{{ url_for('auth.login') }}" class="btn bg-neon text-black px-6 py-3 text-lg">Get Started</a>
+</div>
+{% endblock %}

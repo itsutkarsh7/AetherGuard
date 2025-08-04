@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-black">
+  <div class="bg-[#0e0e0e] p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-800">
+    <h2 class="text-3xl font-bold text-center text-white mb-6">Welcome to SentinelAI</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="mb-4">
+          {% for message in messages %}
+            <li class="text-red-500">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login" class="space-y-4">
+      <div>
+        <label class="block text-white">Username</label>
+        <input type="text" name="username" required class="w-full px-4 py-2 rounded bg-black border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div>
+        <label class="block text-white">Password</label>
+        <input type="password" name="password" required class="w-full px-4 py-2 rounded bg-black border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Login</button>
+    </form>
+
+    <div class="text-center my-4 text-gray-400">OR</div>
+
+    <div class="flex flex-col gap-3">
+      <a href="/auth/google" class="bg-red-500 text-white py-2 rounded hover:bg-red-600 transition text-center">Login with Google</a>
+      <a href="/auth/github" class="bg-gray-800 text-white py-2 rounded hover:bg-gray-900 transition text-center">Login with GitHub</a>
+    </div>
+
+    <p class="text-center text-gray-500 text-sm mt-6">
+      Don’t have an account? Register using Google or GitHub.
+    </p>
+  </div>
+</div>
+{% endblock %}
