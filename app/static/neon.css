@@ -36,3 +36,10 @@ a {
   color: #00f0ff;
   text-decoration: none;
 }
+.neon-text {
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
+.neon-box {
+  box-shadow: 0 0 10px #00ffff, 0 0 40px #00ffff inset;
+}
