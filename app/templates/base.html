@@ -5,34 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SentinelAI</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Neon Theme -->
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Neon Theme CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/neon.css') }}">
-
-  <!-- Optional: Icons -->
-  <link href="https://unpkg.com/lucide@latest/dist/lu.min.css" rel="stylesheet" />
 </head>
+
 <body class="bg-black text-white font-sans">
 
   <!-- Navbar -->
   <nav class="flex justify-between items-center px-6 py-4 bg-[#0f0f0f] border-b border-[#1f1f1f] shadow-lg">
+    <!-- Logo -->
     <a href="{{ url_for('landing.landing') }}" class="text-2xl font-bold neon-text">SentinelAI</a>
 
+    <!-- Navigation -->
     <div class="space-x-4">
       {% if 'user' in session %}
-        <a href="{{ url_for('dashboard.dashboard') }}" class="px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-600 hover:text-white transition">Dashboard</a>
+        <a href="{{ url_for('dashboard.dashboard') }}"
+           class="px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-600 hover:text-white transition">
+          Dashboard
+        </a>
         <span class="text-gray-300">Welcome, {{ session['user']['name'] }}</span>
-        <a href="{{ url_for('auth.logout') }}" class="px-4 py-2 border border-pink-500 text-pink-500 rounded hover:bg-pink-600 hover:text-white transition">Logout</a>
+        <a href="{{ url_for('auth.logout') }}"
+           class="px-4 py-2 border border-pink-500 text-pink-500 rounded hover:bg-pink-600 hover:text-white transition">
+          Logout
+        </a>
       {% else %}
-        <a href="{{ url_for('auth.login') }}" class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">Login</a>
+        <a href="{{ url_for('auth.login') }}"
+           class="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition">
+          Login
+        </a>
       {% endif %}
     </div>
   </nav>
 
-  <!-- Content -->
-  <main class="p-6">
+  <!-- Main Content -->
+  <main class="p-6 min-h-screen">
     {% block content %}{% endblock %}
   </main>
 

@@ -1,45 +1,9 @@
-/* neon.css */
-body {
-  background: linear-gradient(to bottom right, #000000, #0f0f0f);
-  color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-nav, .card, footer {
-  background-color: #1a1a1a;
-  border: 1px solid #2c2c2c;
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-}
-
-.card {
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-button, .btn {
-  background: linear-gradient(90deg, #00f0ff, #00ff9f);
-  color: black;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: transform 0.2s;
-}
-
-button:hover, .btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #00ff9f, #00f0ff);
-}
-
-a {
-  color: #00f0ff;
-  text-decoration: none;
-}
 .neon-text {
-  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
-}
-
-.neon-box {
-  box-shadow: 0 0 10px #00ffff, 0 0 40px #00ffff inset;
+  color: #fff;
+  text-shadow:
+    0 0 5px #f0f,
+    0 0 10px #f0f,
+    0 0 20px #f0f,
+    0 0 40px #0ff,
+    0 0 80px #0ff;
 }
