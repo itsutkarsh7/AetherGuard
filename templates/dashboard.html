@@ -1,41 +1,95 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="flex flex-col md:flex-row bg-black min-h-screen text-white">
-    
-    <!-- Sidebar -->
-    <aside class="w-full md:w-1/5 p-4 border-r border-gray-800">
-        <h2 class="text-xl font-bold neon-text mb-4">Menu</h2>
-        <ul class="space-y-2">
-            <li><a href="{{ url_for('dashboard.dashboard') }}" class="hover:underline">Dashboard</a></li>
-            <li><a href="{{ url_for('auth.logout') }}" class="hover:underline text-red-400">Logout</a></li>
-        </ul>
-    </aside>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SentinelAI Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/neon.css') }}" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white font-sans neon-glow">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 p-4 space-y-6">
+            <h2 class="text-2xl font-bold neon-text mb-8">SentinelAI</h2>
+            <nav class="space-y-4">
+                <a href="#" class="block hover:text-cyan-400">Dashboard</a>
+                <a href="#" class="block hover:text-cyan-400">Threat Logs</a>
+                <a href="#" class="block hover:text-cyan-400">Analytics</a>
+                <a href="#" class="block hover:text-cyan-400">Settings</a>
+                <a href="{{ url_for('auth.logout') }}" class="block text-red-400 hover:text-red-300">Logout</a>
+            </nav>
+        </aside>
 
-    <!-- Main content -->
-    <main class="flex-1 p-6">
-        <h1 class="text-3xl font-bold neon-text mb-6">Dashboard</h1>
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <!-- Hero Section -->
+            <section class="mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold neon-text">Welcome, {{ user.name }}</h1>
+                <p class="text-gray-400 mt-2">Your AI-driven cybersecurity dashboard</p>
+            </section>
 
-        <!-- Threat Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-gray-900 p-4 rounded-2xl shadow-lg border border-teal-500">
-                <h2 class="text-lg font-semibold text-teal-300">Threats Detected</h2>
-                <p class="text-3xl font-bold mt-2">{{ stats.threats_detected }}</p>
-            </div>
-            <div class="bg-gray-900 p-4 rounded-2xl shadow-lg border border-blue-500">
-                <h2 class="text-lg font-semibold text-blue-300">Active Sessions</h2>
-                <p class="text-3xl font-bold mt-2">{{ stats.active_sessions }}</p>
-            </div>
-            <div class="bg-gray-900 p-4 rounded-2xl shadow-lg border border-pink-500">
-                <h2 class="text-lg font-semibold text-pink-300">Anomalies Flagged</h2>
-                <p class="text-3xl font-bold mt-2">{{ stats.anomalies_flagged }}</p>
-            </div>
-        </div>
+            <!-- Stats Section -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-gray-800 p-4 rounded-2xl shadow-md border border-cyan-500">
+                    <h3 class="text-lg font-semibold text-cyan-400">Active Threats</h3>
+                    <p class="text-2xl mt-2">8</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-2xl shadow-md border border-green-500">
+                    <h3 class="text-lg font-semibold text-green-400">Systems Monitored</h3>
+                    <p class="text-2xl mt-2">25</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-2xl shadow-md border border-yellow-500">
+                    <h3 class="text-lg font-semibold text-yellow-400">Anomalies Detected</h3>
+                    <p class="text-2xl mt-2">3</p>
+                </div>
+            </section>
 
-        <!-- Placeholder for Charts -->
-        <div class="bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
-            <h2 class="text-xl font-semibold mb-4">System Analytics</h2>
-            <p>Charts coming soon...</p>
-        </div>
-    </main>
-</div>
-{% endblock %}
+            <!-- Charts Placeholders -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-cyan-400">
+                    <h3 class="text-xl mb-4">System Usage (CPU %)</h3>
+                    <div class="h-40 bg-gray-700 rounded-lg flex items-center justify-center text-gray-500">
+                        [ Chart Placeholder ]
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-cyan-400">
+                    <h3 class="text-xl mb-4">Threat Trends</h3>
+                    <div class="h-40 bg-gray-700 rounded-lg flex items-center justify-center text-gray-500">
+                        [ Chart Placeholder ]
+                    </div>
+                </div>
+            </section>
+
+            <!-- MongoDB Sample Data Section -->
+            <section class="bg-gray-800 p-6 rounded-2xl shadow-md border border-indigo-500">
+                <h3 class="text-xl mb-4 text-indigo-400">MongoDB Sample Data</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-900 text-sm rounded-lg">
+                        <thead class="text-gray-300 border-b border-gray-700">
+                            <tr>
+                                <th class="text-left p-2">Title</th>
+                                <th class="text-left p-2">Year</th>
+                                <th class="text-left p-2">IMDb</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movie in sample_data %}
+                            <tr class="border-b border-gray-700">
+                                <td class="p-2">{{ movie.title }}</td>
+                                <td class="p-2">{{ movie.year }}</td>
+                                <td class="p-2">{{ movie.imdb.rating if movie.imdb else 'N/A' }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="p-4 text-center text-gray-500">No data available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

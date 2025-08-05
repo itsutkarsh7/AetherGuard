@@ -1,13 +1,14 @@
-from flask import Blueprint, render_template, session, redirect, url_for, current_app
+from flask import Blueprint, render_template, session, redirect, url_for
+from app.extensions import db
 
-dashboard_bp = Blueprint("dashboard", __name__)
+dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 
-@dashboard_bp.route("/dashboard")
+@dashboard_bp.route("/")
 def dashboard():
     if "user" not in session:
-        return redirect(url_for("auth.login_google"))  # or your login page
+        return redirect(url_for("landing.landing"))
 
-    db = current_app.mongo_db
-    threats = list(db.threats.find())
+    # Example MongoDB collection query
+    logs = list(db.logs.find().limit(10))  # replace 'logs' with your collection name
 
-    return render_template("dashboard.html", user=session["user"], threats=threats)
+    return render_template("dashboard.html", user=session["user"], logs=logs)

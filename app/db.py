@@ -1,11 +1,9 @@
 from pymongo import MongoClient
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+client = MongoClient(os.getenv("MONGODB_URI"))
+db = client.get_database("sentinelAI")  # Use database name explicitly
 
-mongo_uri = os.getenv("MONGODB_URI")
-client = MongoClient(mongo_uri)
-
-# Explicitly define the database name here
-db = client["SentinelAI"]
+def init_db(app):
+    app.mongo_client = client
+    app.db = db

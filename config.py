@@ -1,0 +1,9 @@
+import os
+
+class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    MONGODB_URI = os.getenv("MONGODB_URI")
+    GOOGLE_CLIENT_ID = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
+    GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
+    GITHUB_CLIENT_ID = os.getenv("GITHUB_OAUTH_CLIENT_ID")
+    GITHUB_CLIENT_SECRET = os.getenv("GITHUB_OAUTH_CLIENT_SECRET")
