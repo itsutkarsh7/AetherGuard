@@ -5,10 +5,17 @@ dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 
 @dashboard_bp.route("/")
 def dashboard():
-    if "user" not in session:
+    if "user" not in session and "email" not in session:
         return redirect(url_for("landing.landing"))
 
-    # Example MongoDB collection query
-    logs = list(db.logs.find().limit(10))  # replace 'logs' with your collection name
+    # Build user object based on available session data
+    user = session.get("user", {
+        "name": session.get("email", "Guest"),
+        "email": session.get("email", "Not Provided"),
+        "provider": "email"
+    })
 
-    return render_template("dashboard.html", user=session["user"], logs=logs)
+    # Query logs collection from MongoDB
+    logs = list(db.logs.find().limit(10))  # replace 'logs' with your actual collection
+
+    return render_template("dashboard.html", user=user, logs=logs)
