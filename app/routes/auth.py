@@ -18,6 +18,8 @@ def login_github():
 def google_callback():
     token = oauth.google.authorize_access_token()
     user_info = oauth.google.parse_id_token(token)
+    if not user_info:
+        return redirect(url_for("landing.landing"))  # Optional safety check
     session["user"] = user_info
     return redirect(url_for("dashboard.dashboard"))
 
@@ -25,6 +27,8 @@ def google_callback():
 def github_callback():
     token = oauth.github.authorize_access_token()
     user = oauth.github.get("user").json()
+    if not user:
+        return redirect(url_for("landing.landing"))  # Optional safety check
     session["user"] = user
     return redirect(url_for("dashboard.dashboard"))
 
