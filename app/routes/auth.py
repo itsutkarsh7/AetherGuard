@@ -1,14 +1,15 @@
-from flask import Blueprint, redirect, url_for, session, request, current_app, flash
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
+from werkzeug.security import generate_password_hash, check_password_hash
 from authlib.integrations.flask_client import OAuth
 from bson.objectid import ObjectId
 
-auth_bp = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 oauth = OAuth()
 
-def init_app(app):
+# Initialize OAuth with app
+def init_oauth(app):
     oauth.init_app(app)
 
-    # Google OAuth config
     oauth.register(
         name='google',
         client_id=app.config['GOOGLE_CLIENT_ID'],
@@ -17,7 +18,6 @@ def init_app(app):
         client_kwargs={'scope': 'openid email profile'}
     )
 
-    # GitHub OAuth config
     oauth.register(
         name='github',
         client_id=app.config['GITHUB_CLIENT_ID'],
@@ -28,95 +28,105 @@ def init_app(app):
         client_kwargs={'scope': 'user:email'}
     )
 
-# ----------------- Google OAuth -----------------
+# -------------------- Routes --------------------
 
-@auth_bp.route("/login/google")
-def login_google():
-    redirect_uri = url_for("auth.authorize_google", _external=True)
-    return oauth.google.authorize_redirect(redirect_uri)
+@auth_bp.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        db = current_app.db
+        user = db.users.find_one({"email": email})
 
-@auth_bp.route("/authorize/google")
-def authorize_google():
-    token = oauth.google.authorize_access_token()
-    user_info = oauth.google.parse_id_token(token)
+        if user and check_password_hash(user["password"], password):
+            session["user_id"] = str(user["_id"])
+            session["email"] = user["email"]
+            flash("Login successful!", "success")
+            return redirect(url_for("dashboard.dashboard"))
+        else:
+            flash("Invalid email or password", "danger")
 
-    if user_info:
-        save_user_to_db(user_info, provider='google')
-        session["user"] = {
-            "provider": "google",
-            "id": user_info["sub"],
-            "name": user_info["name"],
-            "email": user_info["email"],
-        }
-        return redirect(url_for("dashboard.dashboard_view"))
+    return render_template("login.html")
 
-    flash("Google login failed", "error")
-    return redirect(url_for("landing.landing_page"))
+@auth_bp.route("/register", methods=["POST"])
+def register():
+    email = request.form["email"]
+    password = request.form["password"]
+    db = current_app.db
 
-# ----------------- GitHub OAuth -----------------
+    if db.users.find_one({"email": email}):
+        flash("User already exists.", "warning")
+        return redirect(url_for("auth.login"))
 
-@auth_bp.route("/login/github")
-def login_github():
-    redirect_uri = url_for("auth.authorize_github", _external=True)
-    return oauth.github.authorize_redirect(redirect_uri)
-
-@auth_bp.route("/authorize/github")
-def authorize_github():
-    token = oauth.github.authorize_access_token()
-    user_info = oauth.github.get("user").json()
-
-    if user_info:
-        email = user_info.get("email")
-        if not email:
-            # Fetch primary email if missing
-            emails = oauth.github.get("user/emails").json()
-            for e in emails:
-                if e.get("primary") and e.get("verified"):
-                    email = e.get("email")
-                    break
-
-        user_record = {
-            "id": user_info["id"],
-            "name": user_info["name"] or user_info["login"],
-            "email": email,
-        }
-
-        save_user_to_db(user_record, provider='github')
-        session["user"] = {
-            "provider": "github",
-            "id": user_info["id"],
-            "name": user_record["name"],
-            "email": email,
-        }
-        return redirect(url_for("dashboard.dashboard_view"))
-
-    flash("GitHub login failed", "error")
-    return redirect(url_for("landing.landing_page"))
-
-# ----------------- Logout -----------------
+    hashed_password = generate_password_hash(password)
+    user_id = db.users.insert_one({"email": email, "password": hashed_password}).inserted_id
+    session["user_id"] = str(user_id)
+    session["email"] = email
+    flash("Registration successful!", "success")
+    return redirect(url_for("dashboard.dashboard"))
 
 @auth_bp.route("/logout")
 def logout():
-    session.pop("user", None)
-    flash("You have been logged out.", "success")
-    return redirect(url_for("landing.landing_page"))
+    session.clear()
+    flash("You’ve been logged out.", "info")
+    return redirect(url_for("landing.landing"))
 
-# ----------------- Save to MongoDB -----------------
+# -------------------- Google OAuth --------------------
 
-def save_user_to_db(user_info, provider):
+@auth_bp.route("/google")
+def google_login():
+    redirect_uri = url_for("auth.google_callback", _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+@auth_bp.route("/google/callback")
+def google_callback():
+    token = oauth.google.authorize_access_token()
+    user_info = token.get("userinfo")
+    email = user_info["email"]
     db = current_app.db
-    users = db["users"]
 
-    query = {"provider": provider, "id": user_info.get("sub") or user_info.get("id")}
-    existing_user = users.find_one(query)
+    user = db.users.find_one({"email": email})
+    if not user:
+        user_id = db.users.insert_one({"email": email}).inserted_id
+        session["user_id"] = str(user_id)
+    else:
+        session["user_id"] = str(user["_id"])
 
-    if existing_user:
-        return  # Already exists
+    session["email"] = email
+    flash("Logged in with Google!", "success")
+    return redirect(url_for("dashboard.dashboard"))
 
-    new_user = {
-        "provider": provider,
-        "id": user_info.get("sub") or user_info.get("id"),
-        "name": user_info.get("name") or user_info.get("login"),
-        "email": user_info.get("email"),
-    }
-    users.insert_one(new_user)
+# -------------------- GitHub OAuth --------------------
+
+@auth_bp.route("/github")
+def github_login():
+    redirect_uri = url_for("auth.github_callback", _external=True)
+    return oauth.github.authorize_redirect(redirect_uri)
+
+@auth_bp.route("/github/callback")
+def github_callback():
+    token = oauth.github.authorize_access_token()
+    resp = oauth.github.get("user", token=token)
+    user_info = resp.json()
+    email = user_info.get("email")
+
+    # Fallback: fetch emails if primary email is not public
+    if not email:
+        emails = oauth.github.get("user/emails", token=token).json()
+        email = next((e["email"] for e in emails if e["primary"] and e["verified"]), None)
+
+    if not email:
+        flash("GitHub email not found.", "danger")
+        return redirect(url_for("auth.login"))
+
+    db = current_app.db
+    user = db.users.find_one({"email": email})
+    if not user:
+        user_id = db.users.insert_one({"email": email}).inserted_id
+        session["user_id"] = str(user_id)
+    else:
+        session["user_id"] = str(user["_id"])
+
+    session["email"] = email
+    flash("Logged in with GitHub!", "success")
+    return redirect(url_for("dashboard.dashboard"))
