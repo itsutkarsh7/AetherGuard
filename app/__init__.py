@@ -5,7 +5,10 @@ from .routes.landing import landing_bp
 from .routes.dashboard import dashboard_bp
 
 def create_app():
-    app = Flask(__name__)
+    # Fix: Specify template and static folder paths
+    app = Flask(__name__, 
+                template_folder='templates',    # Points to app/templates/
+                static_folder='../static')      # Points to SentinelAI/static/
 
     # Load config from config.py
     app.config.from_pyfile("../config.py", silent=True)
