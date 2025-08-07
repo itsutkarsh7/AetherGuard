@@ -1,12 +1,374 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentinelAI</title>
-</head>
-<body>
-    <h1>Welcome to SentinelAI</h1>
-    <p>Landing page is working!</p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}SentinelAI - Advanced Cybersecurity Intelligence{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-cyan-900 min-h-screen flex items-center">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+    </div>
+    
+    <!-- Matrix Rain Effect -->
+    <div class="matrix-bg absolute inset-0 opacity-5"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="space-y-8 animate-fade-in">
+            <!-- Icon -->
+            <div class="flex justify-center">
+                <div class="p-4 bg-cyan-500/20 rounded-full border border-cyan-500/30 backdrop-blur-sm">
+                    <i class="fas fa-shield-virus text-6xl text-cyan-400 animate-pulse"></i>
+                </div>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    Next-Gen
+                </span>
+                <br>
+                <span class="text-white">Cybersecurity</span>
+                <br>
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Intelligence
+                </span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Harness the power of <span class="text-cyan-400 font-semibold">Artificial Intelligence</span> to detect, analyze, and neutralize cyber threats in real-time. Protect your digital fortress with SentinelAI.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+                <a href="/login" class="group bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 flex items-center">
+                    <i class="fas fa-rocket mr-3 group-hover:animate-bounce"></i>
+                    Get Started
+                </a>
+                <a href="#features" class="group border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 flex items-center">
+                    <i class="fas fa-play mr-3 group-hover:translate-x-1 transition-transform"></i>
+                    Watch Demo
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-cyan-400 counter" data-target="99.9">0</div>
+                    <div class="text-gray-400">Uptime %</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-cyan-400 counter" data-target="500">0</div>
+                    <div class="text-gray-400">Threats Blocked</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-cyan-400 counter" data-target="24">0</div>
+                    <div class="text-gray-400">Response Time (ms)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-cyan-400 counter" data-target="1000">0</div>
+                    <div class="text-gray-400">Companies Protected</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div class="animate-bounce">
+            <i class="fas fa-chevron-down text-cyan-400 text-2xl"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-white mb-4">
+                Cutting-Edge <span class="text-cyan-400">Security Features</span>
+            </h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Advanced AI-powered cybersecurity solutions designed to stay ahead of emerging threats
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-cyan-500/20 rounded-full mb-6">
+                        <i class="fas fa-brain text-3xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">AI Threat Detection</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Machine learning algorithms continuously analyze network patterns to identify and neutralize threats before they impact your systems.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-blue-500/20 rounded-full mb-6">
+                        <i class="fas fa-clock text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Real-Time Monitoring</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        24/7 surveillance of your digital infrastructure with instant alerts and automated response protocols for immediate threat mitigation.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-purple-500/20 rounded-full mb-6">
+                        <i class="fas fa-chart-line text-3xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Advanced Analytics</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Comprehensive security insights and predictive analytics to understand threat landscapes and improve your security posture.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-green-500/20 rounded-full mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Zero-Day Protection</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Advanced behavioral analysis detects unknown threats and zero-day exploits that traditional signature-based systems miss.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-red-500/20 rounded-full mb-6">
+                        <i class="fas fa-robot text-3xl text-red-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Automated Response</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Intelligent automated responses to security incidents, reducing response time from hours to milliseconds for critical threats.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="feature-card bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10">
+                <div class="text-center">
+                    <div class="inline-flex p-4 bg-yellow-500/20 rounded-full mb-6">
+                        <i class="fas fa-cloud text-3xl text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Cloud Integration</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Seamless integration with major cloud platforms including AWS, Azure, and GCP for comprehensive multi-cloud security coverage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Why Choose <span class="text-cyan-400">SentinelAI</span>?
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    In an era where cyber threats evolve at lightning speed, traditional security measures fall short. SentinelAI represents the next evolution in cybersecurity - an AI-driven platform that learns, adapts, and protects your digital assets with unprecedented intelligence.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-cyan-400 mr-4 text-xl"></i>
+                        <span class="text-gray-300">Enterprise-grade security architecture</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-cyan-400 mr-4 text-xl"></i>
+                        <span class="text-gray-300">99.9% threat detection accuracy</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-cyan-400 mr-4 text-xl"></i>
+                        <span class="text-gray-300">Compliance with industry standards</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-cyan-400 mr-4 text-xl"></i>
+                        <span class="text-gray-300">24/7 expert support team</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl p-8 border border-cyan-500/20 backdrop-blur-sm">
+                    <div class="text-center">
+                        <i class="fas fa-server text-6xl text-cyan-400 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Trusted by Industry Leaders</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Fortune 500 companies worldwide trust SentinelAI to protect their most critical digital assets and sensitive data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold text-white mb-8">
+            Ready to Secure Your <span class="text-cyan-400">Digital Future</span>?
+        </h2>
+        <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Join thousands of organizations that trust SentinelAI to protect their digital infrastructure. Start your journey to bulletproof cybersecurity today.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="/login" class="group bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 flex items-center">
+                <i class="fas fa-shield-alt mr-3 group-hover:animate-pulse"></i>
+                Start Free Trial
+            </a>
+            <a href="mailto:contact@sentinelai.com" class="group border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 flex items-center">
+                <i class="fas fa-envelope mr-3 group-hover:scale-110 transition-transform"></i>
+                Contact Sales
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Animated counter
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        const animationDuration = 2000;
+        
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const increment = target / (animationDuration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counter.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current);
+                }
+            }, 16);
+        });
+    }
+
+    // Trigger counter animation when in view
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.disconnect();
+            }
+        });
+    }, observerOptions);
+
+    const statsSection = document.querySelector('.grid');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+
+    // Matrix rain effect (simplified)
+    function createMatrix() {
+        const matrix = document.querySelector('.matrix-bg');
+        if (!matrix) return;
+        
+        const chars = '01';
+        let drops = [];
+        
+        for (let i = 0; i < 100; i++) {
+            drops[i] = Math.random() * -500;
+        }
+        
+        function drawMatrix() {
+            let matrixContent = '';
+            for (let i = 0; i < drops.length; i++) {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                matrixContent += `<span style="position:absolute; left:${i * 10}px; top:${drops[i]}px; color:rgba(34,211,238,0.3);">${char}</span>`;
+                
+                if (drops[i] * 10 > matrix.offsetHeight && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            matrix.innerHTML = matrixContent;
+        }
+        
+        setInterval(drawMatrix, 100);
+    }
+
+    // Initialize matrix effect
+    createMatrix();
+
+    // Parallax scrolling effect
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('.matrix-bg');
+        if (parallax) {
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+</script>
+
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
+
+    .feature-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(34,211,238,0.1), transparent);
+        transition: left 0.5s;
+    }
+
+    .feature-card:hover::before {
+        left: 100%;
+    }
+</style>
+{% endblock %}
