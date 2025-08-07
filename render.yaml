@@ -5,7 +5,7 @@ services:
     plan: free
     branch: main
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn wsgi:app
+    startCommand: gunicorn main:app
     envVars:
       - key: SECRET_KEY
         value: 85543ded3e058db2547377c9e132bc71fd328ab15e053086bc150ad74747d86f
