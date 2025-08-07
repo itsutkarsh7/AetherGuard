@@ -1,230 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SentinelAI - Access Terminal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="cyber-grid"></div>
-    <div class="scanning-line"></div>
-    
-    <div class="login-container">
-        <div class="terminal-window">
-            <div class="terminal-header">
-                <div class="terminal-controls">
-                    <span class="control red"></span>
-                    <span class="control yellow"></span>
-                    <span class="control green"></span>
-                </div>
-                <div class="terminal-title">SENTINEL_AI_TERMINAL</div>
+{% extends "base.html" %}
+
+{% block title %}Login - SentinelAI{% endblock %}
+
+{% block content %}
+<!-- Cyberpunk Login Section -->
+<section class="relative min-h-screen bg-black bg-opacity-90 flex items-center justify-center overflow-hidden">
+
+    <!-- Animated Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-cyan-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-pink-500 rounded-full blur-3xl opacity-20 animate-ping"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="relative max-w-md w-full p-8 bg-black bg-opacity-70 backdrop-blur-md border border-cyan-500 rounded-xl shadow-lg z-10">
+
+        <!-- Neon Circle Positioned Above Card -->
+        <div class="absolute top-[-40px] left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-cyan-500 opacity-50 blur-2xl animate-pulse"></div>
+
+        <!-- Title -->
+        <h2 class="text-3xl font-orbitron text-cyan-400 text-center mb-6">Welcome to SentinelAI</h2>
+
+        <!-- Email Login Form -->
+        <form method="POST" action="/login" class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-cyan-200 font-rajdhani">Email</label>
+                <input type="email" name="email" id="email" required
+                    class="mt-1 w-full px-4 py-2 bg-black border border-cyan-500 text-cyan-100 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 font-rajdhani transition duration-300">
             </div>
-
-            <div class="login-card">
-                <div class="login-header">
-                    <div class="logo-container">
-                        <div class="logo-glow"></div>
-                        <i class="fas fa-shield-alt logo-icon"></i>
-                        <h1 class="logo-text">SENTINEL<span class="ai-text">AI</span></h1>
-                    </div>
-                    <div class="status-line">
-                        <span class="status-indicator"></span>
-                        <span class="status-text">SYSTEM ACCESS REQUIRED</span>
-                    </div>
-                </div>
-
-                <!-- Flash Messages -->
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        <div class="terminal-messages">
-                            {% for category, message in messages %}
-                                <div class="terminal-message msg-{{ category }}">
-                                    <span class="msg-prefix">[{{ category.upper() }}]</span>
-                                    <span class="msg-content">{{ message }}</span>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-                <div class="auth-section">
-                    <!-- Social Auth -->
-                    <div class="social-auth">
-                        <div class="section-title">
-                            <span class="title-bracket">[</span>
-                            <span class="title-text">OAUTH_PROTOCOLS</span>
-                            <span class="title-bracket">]</span>
-                        </div>
-                        <div class="social-grid">
-                            <a href="{{ url_for('auth.google_login') }}" class="social-btn google-auth" data-provider="GOOGLE">
-                                <div class="btn-glow"></div>
-                                <i class="fab fa-google"></i>
-                                <span class="btn-text">GOOGLE_AUTH</span>
-                                <div class="btn-scanner"></div>
-                            </a>
-                            <a href="{{ url_for('auth.github_login') }}" class="social-btn github-auth" data-provider="GITHUB">
-                                <div class="btn-glow"></div>
-                                <i class="fab fa-github"></i>
-                                <span class="btn-text">GITHUB_AUTH</span>
-                                <div class="btn-scanner"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="divider-section">
-                        <div class="divider-line"></div>
-                        <span class="divider-text">OR</span>
-                        <div class="divider-line"></div>
-                    </div>
-
-                    <!-- Email Auth Form -->
-                    <div class="manual-auth">
-                        <div class="section-title">
-                            <span class="title-bracket">[</span>
-                            <span class="title-text">MANUAL_AUTHENTICATION</span>
-                            <span class="title-bracket">]</span>
-                        </div>
-                        
-                        <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
-                            <div class="input-group">
-                                <label class="input-label">USER_ID:</label>
-                                <div class="input-container">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input type="email" name="email" class="cyber-input" placeholder="user@domain.ext" required>
-                                    <div class="input-border"></div>
-                                </div>
-                            </div>
-
-                            <div class="input-group">
-                                <label class="input-label">ACCESS_KEY:</label>
-                                <div class="input-container">
-                                    <i class="fas fa-key input-icon"></i>
-                                    <input type="password" name="password" class="cyber-input" placeholder="••••••••••••" required id="password">
-                                    <button type="button" class="toggle-visibility" onclick="togglePassword()">
-                                        <i class="fas fa-eye" id="eye-icon"></i>
-                                    </button>
-                                    <div class="input-border"></div>
-                                </div>
-                            </div>
-
-                            <div class="auth-options">
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="remember" name="remember" class="cyber-checkbox">
-                                    <label for="remember" class="checkbox-label">
-                                        <span class="checkbox-mark"></span>
-                                        MAINTAIN_SESSION
-                                    </label>
-                                </div>
-                                <a href="#" class="recovery-link">RECOVER_ACCESS</a>
-                            </div>
-
-                            <button type="submit" class="access-btn">
-                                <div class="btn-bg"></div>
-                                <div class="btn-content">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    <span>INITIATE_ACCESS</span>
-                                </div>
-                                <div class="btn-pulse"></div>
-                            </button>
-                        </form>
-
-                        <div class="register-prompt">
-                            <span class="prompt-text">NO_CREDENTIALS? </span>
-                            <a href="{{ url_for('auth.register') }}" class="register-link">CREATE_ACCOUNT</a>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-cyan-200 font-rajdhani">Password</label>
+                <input type="password" name="password" id="password" required
+                    class="mt-1 w-full px-4 py-2 bg-black border border-cyan-500 text-cyan-100 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 font-rajdhani transition duration-300">
             </div>
+            <div>
+                <button type="submit"
+                    class="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-md font-rajdhani transition duration-300">Login</button>
+            </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="my-6 border-t border-gray-600"></div>
+
+        <!-- OAuth Buttons -->
+        <div class="flex flex-col space-y-3">
+            <button onclick="window.location.href='/login/google'"
+                class="flex items-center justify-center w-full py-2 px-4 border border-gray-600 text-white rounded-md hover:bg-gray-800 transition duration-300 font-rajdhani">
+                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" class="mr-2">
+                Continue with Google
+            </button>
+            <button onclick="window.location.href='/login/github'"
+                class="flex items-center justify-center w-full py-2 px-4 border border-gray-600 text-white rounded-md hover:bg-gray-800 transition duration-300 font-rajdhani">
+                <img src="https://img.icons8.com/ios-glyphs/16/ffffff/github.png" alt="GitHub" class="mr-2">
+                Continue with GitHub
+            </button>
         </div>
+
+        <!-- Bottom text -->
+        <p class="mt-6 text-center text-sm text-cyan-300 font-rajdhani">
+            Don’t have an account? <a href="/register" class="text-cyan-400 hover:underline">Register here</a>
+        </p>
     </div>
-
-    <!-- Cyber Effects -->
-    <div class="cyber-effects">
-        <div class="data-stream stream-1"></div>
-        <div class="data-stream stream-2"></div>
-        <div class="data-stream stream-3"></div>
-        <div class="hexagon-pattern"></div>
-    </div>
-
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.className = 'fas fa-eye-slash';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.className = 'fas fa-eye';
-            }
-        }
-
-        // Initialize cyber effects
-        document.addEventListener('DOMContentLoaded', function() {
-            initCyberEffects();
-            initSocialButtons();
-        });
-
-        function initSocialButtons() {
-            document.querySelectorAll('.social-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const provider = this.dataset.provider;
-                    this.classList.add('authenticating');
-                    
-                    // Create loading effect
-                    const loadingText = document.createElement('span');
-                    loadingText.className = 'loading-text';
-                    loadingText.textContent = `CONNECTING_TO_${provider}...`;
-                    
-                    const btnText = this.querySelector('.btn-text');
-                    btnText.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        btnText.textContent = `CONNECTING_TO_${provider}...`;
-                        btnText.style.opacity = '1';
-                    }, 200);
-                });
-            });
-        }
-
-        function initCyberEffects() {
-            // Add glitch effect to logo
-            const logo = document.querySelector('.logo-text');
-            setInterval(() => {
-                logo.style.textShadow = `
-                    ${Math.random() * 2}px 0 #ff0000,
-                    ${Math.random() * -2}px 0 #00ffff
-                `;
-                setTimeout(() => {
-                    logo.style.textShadow = '';
-                }, 50);
-            }, 3000);
-
-            // Animate data streams
-            const streams = document.querySelectorAll('.data-stream');
-            streams.forEach((stream, index) => {
-                const chars = '01';
-                let content = '';
-                for(let i = 0; i < 50; i++) {
-                    content += chars[Math.floor(Math.random() * chars.length)];
-                }
-                stream.textContent = content;
-                
-                setInterval(() => {
-                    let newContent = '';
-                    for(let i = 0; i < 50; i++) {
-                        newContent += chars[Math.floor(Math.random() * chars.length)];
-                    }
-                    stream.textContent = newContent;
-                }, 100 + index * 50);
-            });
-        }
-    </script>
-</body>
-</html>
+</section>
+{% endblock %}
