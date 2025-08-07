@@ -6,8 +6,7 @@ from .routes.landing import landing_bp
 from .routes.dashboard import dashboard_bp
 
 def create_app():
-    print(f"Current working directory: {os.getcwd()}")
-    
+
     template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
     static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
     
