@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Login - SentinelAI{% endblock %}
+{% block title %}Login - AetherGuard{% endblock %}
 
 {% block content %}
 <!-- Cyberpunk Login Section -->
@@ -19,7 +19,7 @@
         <div class="absolute top-[-40px] left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-cyan-500 opacity-50 blur-2xl animate-pulse"></div>
 
         <!-- Title -->
-        <h2 class="text-3xl font-orbitron text-cyan-400 text-center mb-6">Welcome to SentinelAI</h2>
+        <h2 class="text-3xl font-orbitron text-cyan-400 text-center mb-6">Welcome to AetherGuard</h2>
 
         <!-- Email Login Form -->
         <form method="POST" action="/login" class="space-y-4">
@@ -62,4 +62,36 @@
         </p>
     </div>
 </section>
+// Matrix rain effect (simplified)
+    function createMatrix() {
+        const matrix = document.querySelector('.matrix-bg');
+        if (!matrix) return;
+        
+        const chars = '01';
+        let drops = [];
+        
+        for (let i = 0; i < 100; i++) {
+            drops[i] = Math.random() * -500;
+        }
+        
+        function drawMatrix() {
+            let matrixContent = '';
+            for (let i = 0; i < drops.length; i++) {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                matrixContent += `<span style="position:absolute; left:${i * 10}px; top:${drops[i]}px; color:rgba(34,211,238,1); font-family:monospace; font-size:14px; text-shadow: 0 0 10px rgba(34,211,238,0.8);">${char}</span>`;
+                
+                if (drops[i] * 10 > matrix.offsetHeight && Math.random() > 1.567) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            matrix.innerHTML = matrixContent;
+        }
+        
+        setInterval(drawMatrix, 100);
+    }
+
+    // Initialize matrix effect
+    createMatrix();
+
 {% endblock %}

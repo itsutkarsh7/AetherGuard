@@ -1,14 +1,24 @@
+/* Base background and text */
 body {
+  margin: 0;
+  padding: 0;
   background-color: #000;
   color: #0ff;
   font-family: 'Courier New', monospace;
+  overflow-x: hidden;
 }
 
+/* Neon effect for headings or key text */
 .neon-text {
   color: #0ff;
-  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff;
 }
 
+/* Neon button styling */
 .btn {
   display: inline-block;
   margin: 10px;
@@ -24,5 +34,41 @@ body {
 .btn:hover {
   background: #0ff;
   color: #000;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  box-shadow:
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 30px #0ff;
+}
+
+/* Matrix Rain Effect */
+canvas#matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 1);
+}
+
+/* Brighten matrix text */
+.matrix-char {
+  font-size: 16px;
+  color: #0ff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 30px #0ff;
+}
+
+/* Optional: Overlay glow for entire content */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(0,255,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }

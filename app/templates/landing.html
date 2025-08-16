@@ -13,7 +13,7 @@
     </div>
     
     <!-- Matrix Rain Effect -->
-    <div class="matrix-bg absolute inset-0 opacity-5"></div>
+    <div class="matrix-bg absolute inset-0 opacity-100"></div>
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="space-y-8 animate-fade-in">
@@ -242,7 +242,7 @@
             </a>
             <a href="mailto:contact@sentinelai.com" class="group border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 flex items-center">
                 <i class="fas fa-envelope mr-3 group-hover:scale-110 transition-transform"></i>
-                Contact Info
+                Contact Sales
             </a>
         </div>
     </div>
@@ -309,9 +309,9 @@
             let matrixContent = '';
             for (let i = 0; i < drops.length; i++) {
                 const char = chars[Math.floor(Math.random() * chars.length)];
-                matrixContent += `<span style="position:absolute; left:${i * 10}px; top:${drops[i]}px; color:rgba(34,211,238,0.3);">${char}</span>`;
+                matrixContent += `<span style="position:absolute; left:${i * 10}px; top:${drops[i]}px; color:rgba(34,211,238,1); font-family:monospace; font-size:14px; text-shadow: 0 0 10px rgba(34,211,238,0.8);">${char}</span>`;
                 
-                if (drops[i] * 10 > matrix.offsetHeight && Math.random() > 0.975) {
+                if (drops[i] * 10 > matrix.offsetHeight && Math.random() > 1.567) {
                     drops[i] = 0;
                 }
                 drops[i]++;
