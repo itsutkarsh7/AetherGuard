@@ -41,3 +41,5 @@ def init_mongo(app):
     # Store client and db on app object
     app.mongo_client = mongo_client
     app.db = db
+
+
