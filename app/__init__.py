@@ -1,11 +1,14 @@
 from flask import Flask
 import os
+from dotenv import load_dotenv  
 from .extensions import init_mongo
 from .routes.auth import auth_bp
 from .routes.landing import landing_bp
 from .routes.dashboard import dashboard_bp
 
 def create_app():
+    # Load environment variables
+    load_dotenv()  # Add this line
 
     template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
     static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
@@ -19,8 +22,8 @@ def create_app():
                 template_folder=template_dir,
                 static_folder=static_dir)
 
-    # Add this line
-    app.secret_key = '85543ded3e058db2547377c9e132bc71fd328ab15e053086bc150ad74747d86f'
+    # Set secret key from environment
+    app.secret_key = os.environ.get('SECRET_KEY', '85543ded3e058db2547377c9e132bc71fd328ab15e053086bc150ad74747d86f')
 
     # Load config from oauth.py
     app.config.from_pyfile("../oauth.py", silent=True)
