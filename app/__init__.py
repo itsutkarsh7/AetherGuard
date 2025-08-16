@@ -19,8 +19,11 @@ def create_app():
                 template_folder=template_dir,
                 static_folder=static_dir)
 
-    # Load config from config.py
-    app.config.from_pyfile("../config.py", silent=True)
+    # Add this line
+    app.secret_key = '85543ded3e058db2547377c9e132bc71fd328ab15e053086bc150ad74747d86f'
+
+    # Load config from oauth.py
+    app.config.from_pyfile("../oauth.py", silent=True)
 
     # Initialize MongoDB
     init_mongo(app)

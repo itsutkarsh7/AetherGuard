@@ -1,98 +1,105 @@
 {% extends "base.html" %}
 
-{% block title %}Login - AetherGuard{% endblock %}
+{% block title %}AetherGuard - Access Terminal{% endblock %}
 
 {% block content %}
-<!-- Cyberpunk Login Section -->
-<section class="relative min-h-screen bg-black bg-opacity-90 flex items-center justify-center overflow-hidden">
-
-    <!-- Animated Background Elements -->
-    <div class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
-        <div class="absolute top-1/4 left-10 w-64 h-64 bg-cyan-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-pink-500 rounded-full blur-3xl opacity-20 animate-ping"></div>
+<section class="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+    <!-- Animated neon background -->
+    <div class="absolute inset-0">
+        <div class="absolute w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-3xl top-[-200px] left-[-200px] animate-pulse"></div>
+        <div class="absolute w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-3xl bottom-[-200px] right-[-200px] animate-pulse"></div>
     </div>
 
-    <!-- Login Card -->
-    <div class="relative max-w-md w-full p-8 bg-black bg-opacity-70 backdrop-blur-md border border-cyan-500 rounded-xl shadow-lg z-10">
+    <!-- Terminal Login/Register Card -->
+    <div class="relative z-10 w-full max-w-md neon-border p-8 bg-gray-900/80 rounded-2xl shadow-2xl">
+        <h1 class="text-3xl font-orbitron text-cyan-400 text-center mb-6">AetherGuard Access</h1>
 
-        <!-- Neon Circle Positioned Above Card -->
-        <div class="absolute top-[-40px] left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-cyan-500 opacity-50 blur-2xl animate-pulse"></div>
+        <!-- Toggle Tabs -->
+        <div class="flex justify-center mb-6">
+            <button id="loginTab" class="tab-btn active">Login</button>
+            <button id="registerTab" class="tab-btn">Register</button>
+        </div>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-orbitron text-cyan-400 text-center mb-6">Welcome to AetherGuard</h2>
+        <!-- Login Form -->
+        <form id="loginForm" method="POST" action="{{ url_for('auth.login') }}" class="space-y-4">
+            <input type="email" name="email" placeholder="Email" required class="input-field">
+            <input type="password" name="password" placeholder="Password" required class="input-field">
 
-        <!-- Email Login Form -->
-        <form method="POST" action="/login" class="space-y-4">
-            <div>
-                <label for="email" class="block text-sm font-medium text-cyan-200 font-rajdhani">Email</label>
-                <input type="email" name="email" id="email" required
-                    class="mt-1 w-full px-4 py-2 bg-black border border-cyan-500 text-cyan-100 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 font-rajdhani transition duration-300">
+            <button type="submit" class="btn-primary w-full">Login</button>
+
+            <div class="flex items-center justify-center my-4">
+                <span class="text-gray-400 text-sm">or continue with</span>
             </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-cyan-200 font-rajdhani">Password</label>
-                <input type="password" name="password" id="password" required
-                    class="mt-1 w-full px-4 py-2 bg-black border border-cyan-500 text-cyan-100 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 font-rajdhani transition duration-300">
-            </div>
-            <div>
-                <button type="submit"
-                    class="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-md font-rajdhani transition duration-300">Login</button>
+
+            <div class="flex gap-4">
+                <a href="{{ url_for('auth.google_login') }}" class="btn-oauth google">
+                    <i class="fab fa-google mr-2"></i> Google
+                </a>
+                <a href="{{ url_for('auth.github_login') }}" class="btn-oauth github">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
             </div>
         </form>
 
-        <!-- Divider -->
-        <div class="my-6 border-t border-gray-600"></div>
+        <!-- Register Form -->
+        <form id="registerForm" method="POST" action="{{ url_for('auth.register') }}" class="space-y-4 hidden">
+            <input type="text" name="username" placeholder="Username" required class="input-field">
+            <input type="email" name="email" placeholder="Email" required class="input-field">
+            <input type="password" name="password" placeholder="Password" required class="input-field">
 
-        <!-- OAuth Buttons -->
-        <div class="flex flex-col space-y-3">
-            <button onclick="window.location.href='/login/google'"
-                class="flex items-center justify-center w-full py-2 px-4 border border-gray-600 text-white rounded-md hover:bg-gray-800 transition duration-300 font-rajdhani">
-                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google" class="mr-2">
-                Continue with Google
-            </button>
-            <button onclick="window.location.href='/login/github'"
-                class="flex items-center justify-center w-full py-2 px-4 border border-gray-600 text-white rounded-md hover:bg-gray-800 transition duration-300 font-rajdhani">
-                <img src="https://img.icons8.com/ios-glyphs/16/ffffff/github.png" alt="GitHub" class="mr-2">
-                Continue with GitHub
-            </button>
-        </div>
+            <button type="submit" class="btn-primary w-full">Register</button>
 
-        <!-- Bottom text -->
-        <p class="mt-6 text-center text-sm text-cyan-300 font-rajdhani">
-            Don’t have an account? <a href="/register" class="text-cyan-400 hover:underline">Register here</a>
-        </p>
+            <div class="flex items-center justify-center my-4">
+                <span class="text-gray-400 text-sm">or sign up with</span>
+            </div>
+
+            <div class="flex gap-4">
+                <a href="{{ url_for('auth.google_login') }}" class="btn-oauth google">
+                    <i class="fab fa-google mr-2"></i> Google
+                </a>
+                <a href="{{ url_for('auth.github_login') }}" class="btn-oauth github">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
+            </div>
+        </form>
     </div>
 </section>
 
-// Matrix rain effect (simplified)
-    function createMatrix() {
-        const matrix = document.querySelector('.matrix-bg');
-        if (!matrix) return;
-        
-        const chars = '01';
-        let drops = [];
-        
-        for (let i = 0; i < 100; i++) {
-            drops[i] = Math.random() * -500;
-        }
-        
-        function drawMatrix() {
-            let matrixContent = '';
-            for (let i = 0; i < drops.length; i++) {
-                const char = chars[Math.floor(Math.random() * chars.length)];
-                matrixContent += `<span style="position:absolute; left:${i * 10}px; top:${drops[i]}px; color:rgba(34,211,238,1); font-family:monospace; font-size:14px; text-shadow: 0 0 10px rgba(34,211,238,0.8);">${char}</span>`;
-                
-                if (drops[i] * 10 > matrix.offsetHeight && Math.random() > 1.567) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-            matrix.innerHTML = matrixContent;
-        }
-        
-        setInterval(drawMatrix, 100);
-    }
+<!-- Custom CSS -->
+<style>
+    .font-orbitron { font-family: 'Orbitron', sans-serif; }
+    .neon-border { border: 2px solid rgba(0, 255, 255, 0.4); box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+    .input-field { width: 100%; padding: 12px; background: #111; border: 1px solid #00ffff55; border-radius: 8px; color: #fff; }
+    .input-field:focus { outline: none; border-color: #0ff; box-shadow: 0 0 8px #0ff; }
+    .btn-primary { background: linear-gradient(90deg, #06b6d4, #3b82f6); padding: 12px; border-radius: 8px; font-weight: bold; color: white; transition: all 0.3s; }
+    .btn-primary:hover { box-shadow: 0 0 15px #0ff; transform: scale(1.05); }
+    .btn-oauth { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-weight: bold; transition: all 0.3s; }
+    .btn-oauth.google { background: #db4437; color: white; }
+    .btn-oauth.github { background: #333; color: white; }
+    .btn-oauth:hover { transform: scale(1.05); opacity: 0.9; }
+    .tab-btn { flex: 1; padding: 10px; font-weight: bold; background: transparent; border: none; cursor: pointer; color: #aaa; }
+    .tab-btn.active { color: #0ff; border-bottom: 2px solid #0ff; }
+</style>
 
-    // Initialize matrix effect
-    createMatrix();
+<!-- Tab Toggle Script -->
+<script>
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
 
+    loginTab.addEventListener("click", () => {
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+        loginForm.classList.remove("hidden");
+        registerForm.classList.add("hidden");
+    });
+
+    registerTab.addEventListener("click", () => {
+        registerTab.classList.add("active");
+        loginTab.classList.remove("active");
+        registerForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+    });
+</script>
 {% endblock %}
