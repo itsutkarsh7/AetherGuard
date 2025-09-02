@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - AetherGuard{% endblock %}
+
+{% block content %}
+<section class="min-h-screen bg-gray-900 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">
+                Welcome to Your <span class="text-cyan-400">Security Dashboard</span>
+            </h1>
+            <p class="text-xl text-gray-400">
+                Hello {{ session.user_name }}! Your cybersecurity command center.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Threat Status Card -->
+            <div class="bg-gray-800 rounded-xl p-6 border border-cyan-500/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">Threat Status</h3>
+                    <i class="fas fa-shield-alt text-cyan-400 text-2xl"></i>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-400">SECURE</div>
+                    <p class="text-gray-400 mt-2">No active threats detected</p>
+                </div>
+            </div>
+
+            <!-- Security Score Card -->
+            <div class="bg-gray-800 rounded-xl p-6 border border-cyan-500/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">Security Score</h3>
+                    <i class="fas fa-chart-line text-cyan-400 text-2xl"></i>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-cyan-400">98%</div>
+                    <p class="text-gray-400 mt-2">Excellent protection level</p>
+                </div>
+            </div>
+
+            <!-- Recent Activity Card -->
+            <div class="bg-gray-800 rounded-xl p-6 border border-cyan-500/20">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">Activity</h3>
+                    <i class="fas fa-history text-cyan-400 text-2xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-sm text-gray-300">Last scan: 2 min ago</div>
+                    <div class="text-sm text-gray-300">Threats blocked: 0</div>
+                    <div class="text-sm text-gray-300">Status: Active</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-12 text-center">
+            <h2 class="text-2xl font-bold text-white mb-6">Quick Actions</h2>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/dashboard/threats" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300">
+                    <i class="fas fa-search mr-2"></i>Run Threat Scan
+                </a>
+                <a href="/dashboard/settings" class="border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300">
+                    <i class="fas fa-cog mr-2"></i>Settings
+                </a>
+                <a href="/logout" class="border-2 border-red-500 text-red-400 hover:bg-red-500/10 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
